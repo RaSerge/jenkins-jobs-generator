@@ -6,26 +6,17 @@
     - git:
       	url: git@gitlab-selfhosted.org:group/repo-dsl.git
       	branches:
-          - origin/master
+          - master
+          - upgrade1
       	credentials-id: some-credentials-id
+        clean:
+          before: true
       	timeout: 20
-      	basedir: dsl
   triggers:
-    - gitlab:
-      	trigger-push: true
-      	trigger-merge-request: false
-      	trigger-open-merge-request-push: both
-      	ci-skip: false
-      	set-build-description: false
-      	add-note-merge-request: false
-      	add-vote-merge-request: false
-      	add-ci-message: true
-      	allow-all-branches: true
-      	branch-filter-type: RegexBasedFilter
-      	target-branch-regex: '.*master*.'
+    - bitbucket
   builders:
     - dsl:
-      	target: "job-dsl/*.groovy"
+      	target: "dsl-jobs/*.groovy"
       	ignore-existing: "false"
       	removed-job-action: "DISABLE"
       	removed-view-action: "DELETE"
