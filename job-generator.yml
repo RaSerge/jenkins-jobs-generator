@@ -1,0 +1,32 @@
+---
+- job:
+  name: job-generator
+  description: 'Do not edit this job through the web!'
+  scm:
+    - git:
+      	url: git@gitlab-selfhosted.org:group/repo-dsl.git
+      	branches:
+          - origin/master
+      	credentials-id: some-credentials-id
+      	timeout: 20
+      	basedir: dsl
+  triggers:
+    - gitlab:
+      	trigger-push: true
+      	trigger-merge-request: false
+      	trigger-open-merge-request-push: both
+      	ci-skip: false
+      	set-build-description: false
+      	add-note-merge-request: false
+      	add-vote-merge-request: false
+      	add-ci-message: true
+      	allow-all-branches: true
+      	branch-filter-type: RegexBasedFilter
+      	target-branch-regex: '.*master*.'
+  builders:
+    - dsl:
+      	target: "job-dsl/*.groovy"
+      	ignore-existing: "false"
+      	removed-job-action: "DISABLE"
+      	removed-view-action: "DELETE"
+      	lookup-strategy: "SEED_JOB"
