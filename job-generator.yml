@@ -4,7 +4,7 @@
   description: 'Do not edit this job through the web!'
   scm:
     - git:
-      	url: git@gitlab-selfhosted.org:group/repo-dsl.git
+      	url: git@gitlab-selfhosted.org:group/jenkins-pipelines.git
       	branches:
           - master
           - upgrade1
